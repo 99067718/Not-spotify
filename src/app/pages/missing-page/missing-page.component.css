@@ -1,0 +1,32 @@
+img{
+    border-radius: 10px;
+}
+img:hover{
+    background-color: darkgreen;
+    animation: img-scale 0.3s forwards;
+  }
+
+  @keyframes img-scale {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  img:not(:hover) {
+    animation: img-scale-down 0.3s forwards;
+  }
+  
+  @keyframes img-scale-down {
+    0% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

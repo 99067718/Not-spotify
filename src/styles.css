@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+.fancy-button{
+    border-radius: 30px;
+}
+
+.fancy-button:hover{
+    animation: button-scale 0.3s forwards;
+  }
+
+  @keyframes button-scale {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  .fancy-button:not(:hover) {
+    animation: button-scale-down 0.3s forwards;
+  }
+  
+  @keyframes button-scale-down {
+    0% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
