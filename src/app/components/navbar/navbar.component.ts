@@ -18,6 +18,13 @@ export class NavbarComponent {
     }
     else if (this.Count == 25){
       Icon?.setAttribute("src", "../../../assets/images/FinalIcon.gif")
+      var TopBar = document.getElementById("navBar");
+      TopBar?.setAttribute("class", "navPartyMode");
+      setTimeout(() => {
+        var appNameComponent = document.getElementById("appName");
+        appNameComponent?.setAttribute("class", "namePartyMode")
+      }, 1000);
+      
     }
   };
 }

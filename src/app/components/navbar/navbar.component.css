@@ -17,15 +17,77 @@
 }
 
 .active {
+    background-color: white;
+}
+
+li :not(.active){
     background-color: gray;
 }
+
 #login-button{
     float: right;
 }
+
 nav{
     height: 100%;
 }
 
+.navPartyMode{
+    display: flex;
+    height: 70px;
+    width:auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+    flex-direction: row;
+    animation: disco 5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes disco {
+    0% {
+      background-color: red;
+    }
+    20%{
+        background-color: purple;
+    }
+    40%{
+        background-color: green;
+    }
+    60%{
+        background-color: yellow;
+    }
+    80%{
+        background-color: blue;
+    }
+    100% {
+        background-color: red;
+    }
+  }
+.namePartyMode{
+    animation: discoName 5s;
+    animation-iteration-count: infinite;
+}
+@keyframes discoName {
+    0% {
+      color: red;
+    }
+    20%{
+        color: blue;
+    }
+    40%{
+        color: green;
+    }
+    60%{
+        color: yellow;
+    }
+    80%{
+        color: white;
+    }
+    100% {
+        color: red;
+    }
+  }
 a{
     height: 100%;
     background-color: white;
