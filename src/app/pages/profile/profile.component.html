@@ -1,11 +1,12 @@
 <div id="content">
-    <div id="profileInfo">
+    <div *ngIf="!isOwnUserProfileEmpty()" id="profileInfo">
         <div id="pfp">
-            <img id="pfpimage" src="https://media.tenor.com/q8D1MG9lThMAAAAC/oh-no-disappointed.gif" alt="Profile Picture">
+            <img id="pfpimage" src="{{savedData.images[0].url}}" alt="Profile Picture">
         </div>
-        <h1>[Username]</h1>
+        <h1 id="username">{{savedData.display_name}}</h1>
         <p>
-            description
+            Subscription status: 
         </p>
+        <h1>**{{savedData.product}}**</h1>
     </div>
 </div>

@@ -20,6 +20,7 @@ export class CallbackComponent implements OnInit {
       // Code or state is not available in the URL
       // Handle the situation accordingly
     }
+    window.location.href = "http://localhost:4200";
   }
    handleAuthorizationCode(code: string, state: string): void {
       this.spotifyApiService.exchangeAuthorizationCode(code, state).subscribe(
@@ -37,7 +38,6 @@ export class CallbackComponent implements OnInit {
         (error) => {
           // Handle error response from token exchange
         }
-        
       );
     }
 }
