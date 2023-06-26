@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from '../../services/spotify-api.service'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -15,11 +16,19 @@ export class NavbarComponent implements OnInit {
         try{
           if (token != null){
             this.spotifyApiService.setAccessToken(token);
+            localStorage.setItem("spotifyAccessToken", token)
+            break;
           }
         }
         catch(error){
           try{
-            this.spotifyApiService.refreshAccessToken()
+            let newtoken :Observable<any> = this.spotifyApiService.refreshAccessToken()
+            if (newtoken != null){
+              localStorage.setItem("spotifyAccessToken", newtoken)///////////////////////////////
+            }
+            else{
+              break;
+            }
           }
           catch(error){
             alert("No tokens have been found in the database, please log in to continue");
@@ -72,7 +81,7 @@ export class NavbarComponent implements OnInit {
     if (this.spotifyApiService.checkIfLoggedIn()){
       var loginbutton = document.getElementById("login-button");
       if (loginbutton != null){
-        loginbutton.style.display = "none";
+        //loginbutton.style.display = "none";
       }
     }
   }
