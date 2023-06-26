@@ -26,6 +26,8 @@ li :not(.active){
 
 #login-button{
     float: right;
+    height: 50px;
+    
 }
 
 nav{

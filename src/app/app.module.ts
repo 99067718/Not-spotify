@@ -9,6 +9,7 @@ import { MissingPageComponent } from './pages/missing-page/missing-page.componen
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CallbackComponent } from './pages/callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginPageComponent,
     MissingPageComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '../keys';
 
 @Injectable({
@@ -30,6 +30,23 @@ export class SpotifyApiService {
         window.location.href = authorizeUrl;
     }
 
+    refreshAccessToken(): Observable<any> {
+        var refreshtoken = localStorage.getItem("spotifyRefreshToken");
+        if (refreshtoken != null){
+            const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+            const body = new HttpParams()
+          .set('grant_type', 'refresh_token')
+          .set('refresh_token', refreshtoken)
+          .set('client_id', this.clientId)
+          .set('client_secret', environment.spotify.clientSecret);
+    
+        return this.http.post<any>(this.tokenEndpoint, body.toString(), { headers });
+        }
+        else{
+            return of(null);
+        }
+    }
+      
     checkIfLoggedIn(redirectURI: string = '', autoLogin: boolean = true): boolean {
         this.accessToken = localStorage.getItem('spotifyAccessToken');
         if (this.accessToken == null) {
@@ -43,22 +60,23 @@ export class SpotifyApiService {
         }
     }
 
-    exchangeAuthorizationCode(code: string, state: string): Observable<string> {
+    exchangeAuthorizationCode(code: string, state: string): Observable<any> {
         const tokenEndpoint = 'https://accounts.spotify.com/api/token';
         const clientId = environment.spotify.clientId;
         const clientSecret = environment.spotify.clientSecret;
         const redirectUri = environment.spotify.redirectUri;
-
+      
         const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
         const body = new HttpParams()
-            .set('grant_type', 'authorization_code')
-            .set('code', code)
-            .set('redirect_uri', redirectUri)
-            .set('client_id', clientId)
-            .set('client_secret', clientSecret);
-
+          .set('grant_type', 'authorization_code')
+          .set('code', code)
+          .set('redirect_uri', redirectUri)
+          .set('client_id', clientId)
+          .set('client_secret', clientSecret);
+      
         return this.http.post<any>(tokenEndpoint, body, { headers });
-    }
+      }
+      
 
     private generateRandomString(length: number): string {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -102,6 +120,7 @@ export class SpotifyApiService {
 
         return this.http.get<any>(`${this.apiUrl}/me/top/tracks`, { headers, params: queryParams });
     }
+      
 
 
     // Other methods for interacting with the Spotify API
