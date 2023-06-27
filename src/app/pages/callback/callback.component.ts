@@ -20,7 +20,6 @@ export class CallbackComponent implements OnInit {
       // Code or state is not available in the URL
       // Handle the situation accordingly
     }
-    window.location.href = "http://localhost:4200";
   }
    handleAuthorizationCode(code: string, state: string): void {
       this.spotifyApiService.exchangeAuthorizationCode(code, state).subscribe(
@@ -30,9 +29,11 @@ export class CallbackComponent implements OnInit {
           this.spotifyApiService.setAccessToken(accessToken);
   
           // Save the access token and refresh token to localStorage or any other storage mechanism
+          localStorage.removeItem("spotifyAccessToken");
+          localStorage.removeItem("spotifyRefreshToken");
           localStorage.setItem('spotifyAccessToken', accessToken);
           localStorage.setItem('spotifyRefreshToken', refreshToken);
-          
+          window.location.href = "http://localhost:4200";
           // Perform any other necessary actions after successful token exchange
         },
         (error) => {
@@ -40,4 +41,5 @@ export class CallbackComponent implements OnInit {
         }
       );
     }
+    
 }

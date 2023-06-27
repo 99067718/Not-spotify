@@ -11,30 +11,37 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   if (localStorage.getItem("spotifyAccessToken") != null){
     try{
-      while (true){
         var token = localStorage.getItem("spotifyAccessToken");
         try{
           if (token != null){
             this.spotifyApiService.setAccessToken(token);
             localStorage.setItem("spotifyAccessToken", token)
-            break;
           }
         }
         catch(error){
           try{
-            let newtoken :Observable<any> = this.spotifyApiService.refreshAccessToken()
-            if (newtoken != null){
-              localStorage.setItem("spotifyAccessToken", newtoken)///////////////////////////////
-            }
-            else{
-              break;
-            }
+            // Assuming you're working with Angular and using RxJS
+
+            var newtoken: string;
+
+            this.spotifyApiService.refreshAccessToken().subscribe(
+              (response: any) => {
+                if (response != null) {
+                  newtoken = response as string;
+                  localStorage.removeItem("spotifyAccessToken");
+                  localStorage.setItem("spotifyAccessToken", newtoken);
+                  this.spotifyApiService.setAccessToken(newtoken);
+                }
+                
+              },
+              (error: any) => {
+                alert(error)
+              }
+            );
           }
           catch(error){
             alert("No tokens have been found in the database, please log in to continue");
-            break;
           }
-        }
       }
     } catch(error){
       alert("something went wrong");
@@ -78,11 +85,21 @@ export class NavbarComponent implements OnInit {
   }
 
   getLoginStatus(): void{
-    if (this.spotifyApiService.checkIfLoggedIn()){
+    var accessToken = localStorage.getItem("spotifyAccessToken") as string;
+this.spotifyApiService.checkAccessTokenValidity(accessToken).subscribe(
+  (isLoggedin: boolean) => {
+    console.log(isLoggedin);
+
+    if (isLoggedin) {
       var loginbutton = document.getElementById("login-button");
-      if (loginbutton != null){
-        //loginbutton.style.display = "none";
+      if (loginbutton != null) {
+        loginbutton.style.display = "none";
       }
     }
+  },
+  (error: any) => {
+    console.error('Error checking access token validity:', error);
+  }
+);
   }
 }

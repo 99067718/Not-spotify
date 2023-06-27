@@ -1,12 +1,23 @@
 <div id="content">
     <div *ngIf="!isOwnUserProfileEmpty()" id="profileInfo">
-        <div id="pfp">
-            <img id="pfpimage" src="{{savedData.images[0].url}}" alt="Profile Picture">
+        <div id="userinfo">
+            <div id="pfp">
+                <img id="pfpimage" src="{{savedData.images[0].url}}" alt="Profile Picture">
+            </div>
+            <h1 id="username">{{savedData.display_name}}</h1>
+            <p>
+                Subscription status: {{savedData.product}}
+            </p>
+            <button (click)="logOut()" class="fancy-button">Log out</button>
         </div>
-        <h1 id="username">{{savedData.display_name}}</h1>
-        <p>
-            Subscription status: 
-        </p>
-        <h1>**{{savedData.product}}**</h1>
+        
+
+    </div>
+    <div id="likelist">
+        <h1>Liked songs</h1>
+    </div>
+    <div id="playlists">
+        <h1>{{likelist}}</h1>
+        <img src="{{likelist}}">
     </div>
 </div>
