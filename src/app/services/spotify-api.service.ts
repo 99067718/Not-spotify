@@ -48,15 +48,19 @@ export class SpotifyApiService {
               songItem.style.backgroundColor = "darkgreen";
               songItem.style.borderRadius = "10px"
               songItem.style.height = "180px";
-              songItem.style.width = "120px";
+              songItem.style.width = "100px";
+              songItem.style.padding = "5px";
               songItem.className = 'song-item';
               songItem.style.justifyContent = "center";
+              songItem.style.marginLeft = "10px";
     
               const songImage = document.createElement('img');
               songImage.src = imageUrl;
               songImage.width = 100;
               songImage.style.marginRight = "10px";
-              songImage.style.display = "flex";
+              songImage.style.display = "block";
+              songImage.style.marginLeft = "auto";
+              songImage.style.marginRight = "auto";
               songImage.style.borderRadius = "10px";
               songImage.className = 'song-image';
     
